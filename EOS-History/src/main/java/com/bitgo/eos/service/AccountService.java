@@ -39,6 +39,7 @@ public class AccountService {
 
             JSONObject object = new JSONObject();
             object.put("account_name", userid);
+            TimeUnit.SECONDS.sleep(10);
             ResponseEntity<String> result = restService.postRequest(account, object.toJSONString());
             System.out.println(result.getBody());
             String responseString = result.getBody();
@@ -95,13 +96,14 @@ public class AccountService {
             moreDate = JsonPath.parse(result.getBody()).read("$.more");
             if (moreDate) {
                 lowerBound = JsonPath.parse(result.getBody()).read("$.next_key");
-                TimeUnit.SECONDS.sleep(5);
+                TimeUnit.SECONDS.sleep(10);
             }
         }
         accountResponse.setCpuStaked(cpuStaked);
         accountResponse.setNetStaked(netStaked);
     }catch (Exception e)
        {
+           System.out.println("getCpuStakedAndNetStacked error"+e.getMessage());
            return ;
        }
     }
@@ -121,7 +123,7 @@ public class AccountService {
                     flag = false;
                 } else {
                     skip += limit;
-                    TimeUnit.SECONDS.sleep(5);
+                    TimeUnit.SECONDS.sleep(10);
                 }
                 JSONArray receivedData = JsonPath.parse(responseBody).read("$.actions[*].act.data.amount");
                 if (!receivedData.isEmpty())
@@ -132,7 +134,7 @@ public class AccountService {
 
         }catch (Exception e)
         {
-
+        System.out.println("receivedFund error "+e.getMessage());
         }
         return receivedFund;
     }
@@ -160,7 +162,7 @@ public class AccountService {
             }
         }catch (Exception e)
         {
-
+            System.out.println("sentFund error "+e.getMessage());
         }
         return sentFund;
 
