@@ -1,5 +1,6 @@
 package com.bitgo.eos.service;
 
+import net.minidev.json.*;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -23,6 +24,21 @@ public class RestService {
         return null;
     }
 
+    public ResponseEntity<JSONObject>  postRequestJSONResponse(String url, String requestJson) {
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+
+            HttpEntity<String> entity = new HttpEntity<String>(requestJson, headers);
+            ResponseEntity<JSONObject> response = restTemplate.postForEntity(url, entity,JSONObject.class);
+
+            return response;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 
     public ResponseEntity<String>  getRequest(String url) {
         try {
