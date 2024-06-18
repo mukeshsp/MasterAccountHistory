@@ -18,4 +18,9 @@ public class EtherscanController {
         return etherscanService.getTxJson(txId);
     }
 
+    @RequestMapping(value = "/api/eth/filterFlushTransfer", method = RequestMethod.GET, produces = "application/json")
+    public void filterFlushTransfer() {
+         etherscanService.filterFlushTransfer();
+    }
+
 }
