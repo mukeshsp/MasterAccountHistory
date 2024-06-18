@@ -16,4 +16,8 @@ public class SolController {
          solService.getAccountBalance();
     }
 
+    @RequestMapping(value = "/api/sol/drift", method = RequestMethod.GET, produces = "application/json")
+    public void getStakedDrift() {
+        solService.getStakedDrift();
+    }
 }
